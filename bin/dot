@@ -38,18 +38,11 @@ while test $# -gt 0; do
 	shift
 done
 
-export ZSH=$HOME/.dotfiles
+export DOTFILE_HOME=$HOME/.dotfiles
 
-# Set macOS defaults
-$ZSH/macos/set-defaults.sh
-
-# Install homebrew
-$ZSH/homebrew/install.sh 2>&1
-
-# Upgrade homebrew
-echo "› brew update"
-brew update
+# Set defaults
+$DOTFILE_HOME/bin/set-defaults
 
 # Install software
-echo "› $ZSH/script/install"
-$ZSH/script/install
+echo "› $DOTFILE_HOME/script/install"
+$DOTFILE_HOME/script/install

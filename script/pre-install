@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Run all dotfiles pre-requisite installers.
+
+set -e
+
+cd "$(dirname $0)"/..
+
+# find the installers and run them iteratively
+find . -name pre-install.sh | while read installer ; do echo "installing: ${installer}" && sh -c "${installer}" ; done

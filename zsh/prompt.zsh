@@ -62,7 +62,7 @@ battery_status() {
 
   if [[ $(sysctl -n hw.model) == *"Book"* ]]
   then
-    $ZSH/bin/battery-status
+    $DOTFILE_HOME/bin/battery-status
   fi
 }
 

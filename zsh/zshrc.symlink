@@ -1,8 +1,8 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+# shortcut to this dotfiles path is $DOTFILE_HOME
+export DOTFILE_HOME=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
+export PROJECTS=/mnt/d/projects
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
@@ -14,7 +14,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+config_files=($DOTFILE_HOME/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -39,6 +39,9 @@ do
 done
 
 unset config_files
+
+export ZSH="/home/jonas/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
 
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys

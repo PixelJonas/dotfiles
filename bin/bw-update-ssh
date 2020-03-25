@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+
+mkdir -p ${HOME}/.ssh
+user ' - Bitwarden Username (default: janz.jonas@gmail.com):'
+read -e BITWARDEN_USERNAME
+if test -n $BITWARDEN_USERNAME
+then
+  BITWARDEN_USERNAME="janz.jonas@gmail.com"
+fi
+
+echo "Logging into Bitwarden"
+bw login ${BITWARDEN_USERNAME}
+BW_SESSION=$(bw unlock --raw)
+
+if test ! -e ${HOME}/.ssh/id_rsa && test ${BITWARDEN_USERNAME}="janz.jonas@gmail.com"
+then
+    echo "saving SSH keys"
+    bw get attachment 1fac359ff4fd2e941866 --itemid 6cf121e8-a8a7-456b-a2ec-daf68e0dcb23 --output ${HOME}/.ssh/id_rsa
+    bw get attachment b4cdc38f04198ecbc258 --itemid 6cf121e8-a8a7-456b-a2ec-daf68e0dcb23 --output ${HOME}/.ssh/id_rsa.pub
+    sudo chmod 644 ~/.ssh/id_rsa.pub
+    sudo chmod 600 ~/.ssh/id_rsa
+fi

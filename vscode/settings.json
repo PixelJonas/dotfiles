@@ -1,0 +1,32 @@
+{
+  "workbench.iconTheme": "vscode-icons",
+  "gitlens.keymap": "alternate",
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+  "git.autofetch": true,
+  "gitlens.historyExplorer.enabled": true,
+  "vsicons.projectDetection.disableDetect": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "vsicons.dontShowNewVersionMessage": true,
+  "go.autocompleteUnimportedPackages": true,
+  "go.inferGopath": true,
+  "remote.SSH.showLoginTerminal": true,
+  "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
+  "editor.tabSize": 2,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
+}

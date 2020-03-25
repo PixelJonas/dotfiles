@@ -5,8 +5,7 @@
 branch=$(git rev-parse --abbrev-ref HEAD)
 count=$(git rev-list --count HEAD origin/$branch...HEAD)
 
-if [ "$count" -eq "1" ]
-then
+if [ "$count" -eq "1" ]; then
   s=''
 else
   s='s'

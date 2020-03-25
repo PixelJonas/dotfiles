@@ -7,8 +7,8 @@
 
 set -e
 
-parentDirectory="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P)"
-dotfilesDirectory="$(cd "$( dirname "$parentDirectory" )" && pwd -P)"
+parentDirectory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+dotfilesDirectory="$(cd "$(dirname "$parentDirectory")" && pwd -P)"
 
 displayUsageAndExit() {
 	echo "dot -- dotfiles management"
@@ -23,17 +23,17 @@ displayUsageAndExit() {
 
 while test $# -gt 0; do
 	case "$1" in
-		"-h"|"--help")
-			displayUsageAndExit
-			;;
-		"-e"|"--edit")
-			exec "$EDITOR" "$dotfilesDirectory"
-			exit
-			;;
-		*)
-			echo "Invalid option: $1"
-			displayUsageAndExit
-			;;
+	"-h" | "--help")
+		displayUsageAndExit
+		;;
+	"-e" | "--edit")
+		exec "$EDITOR" "$dotfilesDirectory"
+		exit
+		;;
+	*)
+		echo "Invalid option: $1"
+		displayUsageAndExit
+		;;
 	esac
 	shift
 done

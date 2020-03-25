@@ -2,8 +2,7 @@
 #
 # Sets defaults by running the appropriate default scripts.
 
-if test "$(uname)" = "Darwin"
-then
-	# Set macOS defaults
+if test "$(uname)" = "Darwin"; then
+  # Set macOS defaults
   $DOTFILE_HOME/bin/set-defaults.sh
 fi

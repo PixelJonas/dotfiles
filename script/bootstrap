@@ -157,10 +157,12 @@ else
   fail "error installing dependencies"
 fi
 
-command -v zsh | sudo tee -a /etc/shells
-
-info "Setting ZSH as your default shell"
-chsh -s $(command -v zsh)
-
 echo ''
 echo '  All installed!'
+echo ''
+echo ''
+echo ''
+echo '  Please set ZSH as your default shell by running'
+echo ''
+echo '      $ command -v zsh | sudo tee -a /etc/shells'
+echo '      $ chsh -s $(command -v zsh)'

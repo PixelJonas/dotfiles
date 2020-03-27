@@ -27,10 +27,17 @@ for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/completion.ali
 do
   source $file
 done
-
 # initialize autocomplete here, otherwise functions won't be loaded
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 autoload -U compinit
-compinit
+if [ $(date +'%j') != $(date --date="@$( /usr/bin/stat -c '%Y' -t ${ZDOTDIR:-$HOME}/.zcompdump)" +'%j') ]; then
+  compinit
+else
+  compinit -C
+fi
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}

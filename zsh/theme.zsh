@@ -6,6 +6,9 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER=$(whoami)
 
+typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time kubecontext time status)
+
 typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
@@ -57,9 +60,6 @@ typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
 typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
 # Custom icon.
 typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION=
-
-typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext status command_execution_time time)
 
 # Use terse signal names: "INT" instead of "SIGINT(2)".
 typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false

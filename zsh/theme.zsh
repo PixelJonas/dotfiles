@@ -3,7 +3,7 @@
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER=$(whoami)
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=false
@@ -51,5 +51,5 @@ POWERLEVEL9K_STATUS_ERROR_SIGNAL_BACKGROUND='grey7'
 POWERLEVEL9K_STATUS_ERROR_PIPE_FOREGROUND='darkred'
 POWERLEVEL9K_STATUS_ERROR_PIPE_BACKGROUND='grey7'
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time dir newline vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext status command_execution_time)

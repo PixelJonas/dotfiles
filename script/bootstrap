@@ -3,7 +3,7 @@
 # bootstrap installs things.
 
 cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd -P)
+DOTFILE_HOME=$(pwd -P)
 
 set -e
 
@@ -126,14 +126,14 @@ install_dotfiles() {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
+  for src in $(find -H "$DOTFILE_HOME" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
 }
 
 info "installing pre-requisites"
-if source "${DOTFILES_ROOT}/script/pre-install" | while read -r data; do info "$data"; done; then
+if source "${DOTFILE_HOME}/script/pre-install" | while read -r data; do info "$data"; done; then
   success "pre-requisites installed"
 else
   fail "error installing pre-requisites"

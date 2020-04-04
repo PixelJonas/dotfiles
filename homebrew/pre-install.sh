@@ -24,7 +24,7 @@ if test ! $(command -v brew); then
     elif test "$(uname)" = "Darwin"; then
       info "MacOS config not yet implemented"
     fi
-    brew shellenv >>$DOTFILE_HOME/homebrew/homebrew.path.zsh
+    brew shellenv >> $DOTFILE_HOME/homebrew/homebrew.path.zsh
     brew bundle --file $DOTFILE_HOME/homebrew/Brewfile
   fi
 fi

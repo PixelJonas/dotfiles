@@ -7,23 +7,24 @@
 if test -n $(command -v brew); then
   echo "  Homebrew installed"
 
-  if test ! -d $HOME/.oh-my-zsh; then
+  if test ! -d ${ZSH:-~/.oh-my-zsh}; then
     echo "  Installing Oh-My-ZSH"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" ""
+    git clone https://github.com/ohmyzsh/ohmyzsh.git ${ZSH:-~/.oh-my-zsh}
   fi
 
   echo "Installing Oh-My-ZSH plugins"
+  # Oh-My-ZSH
   # ZSH-Autosuggestions
   if test ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   fi
   # ZSH Syntax Highlighting
   if test ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   fi
-  # Powerlevel9k Theme
+  # Powerlevel10k Theme
   if test ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel9k; then
-    git clone https://github.com/bhilburn/powerlevel9k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel9k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
   fi
 
 fi

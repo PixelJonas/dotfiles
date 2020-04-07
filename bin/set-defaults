@@ -4,5 +4,5 @@
 
 if test "$(uname)" = "Darwin"; then
   # Set macOS defaults
-  $DOTFILE_HOME/bin/set-defaults.sh
+  $DOTFILE_HOME/macos/set-defaults.sh
 fi

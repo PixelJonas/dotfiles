@@ -40,11 +40,7 @@ if type brew &>/dev/null; then
 fi
 
 autoload -U compinit
-if [ $(date +'%j') != $(date --date="@$( /usr/bin/stat -c '%Y' -t ${ZDOTDIR:-$HOME}/.zcompdump)" +'%j') ]; then
-  compinit
-else
-  compinit -C
-fi
+compinit
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -52,7 +48,7 @@ do
   source $file
 done
 
-export ZSH="/home/jonas/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # load completion definition for aliases

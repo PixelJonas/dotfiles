@@ -16,6 +16,9 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 # Always open everything in Finder's list view. This is important.
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
+# Always show hidden files in Finder's view
+defaults write com.apple.Finder AppleShowAllFiles true
+
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
@@ -29,9 +32,6 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # Run the screensaver if we're in the bottom-left hot corner.
 defaults write com.apple.dock wvous-bl-corner -int 5
 defaults write com.apple.dock wvous-bl-modifier -int 0
-
-# Hide Safari's bookmark bar.
-defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 # Set up Safari for development.
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true

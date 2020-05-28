@@ -6,6 +6,9 @@
 # using Homebrew.
 
 # Check for Homebrew
+cd "$(dirname "$0")/.."
+DOTFILE_HOME=$(pwd -P)
+
 if test ! $(command -v brew); then
   echo "  Installing Homebrew for you."
 
@@ -24,7 +27,7 @@ if test ! $(command -v brew); then
     elif test "$(uname)" = "Darwin"; then
       info "MacOS config not yet implemented"
     fi
-    brew shellenv >> $DOTFILE_HOME/homebrew/homebrew.path.zsh
+    brew shellenv >>$DOTFILE_HOME/homebrew/homebrew.path.zsh
     brew bundle --file $DOTFILE_HOME/homebrew/Brewfile
   fi
 fi

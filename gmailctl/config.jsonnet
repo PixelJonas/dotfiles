@@ -1,28 +1,32 @@
 local lib = import 'gmailctl.libsonnet';
 
-local toMe = [
-  { to: 'jjanz@redhat.com' },
-  { to: 'jonas.janz@redhat.com' },
-];
+local toMe = { 
+  or: [
+    { to: 'jjanz@redhat.com' },
+    { to: 'jonas.janz@redhat.com' },
+  ]
+};
 
-local favorites = [
-  { from: 'burr.sutter@redhat.com' },
-  { from: 'mpfuetzn@redhat.com' },
-  { from: 'matthias.pfuetzner@redhat.com' },
-  { from: 'mpfuetzner@redhat.com' },
-  { from: 'rbohne@redhat.com' },
-  { from: 'rbo@redhat.com' },
-  { from: 'robert.bohne@redhat.com' },
-  { from: 'sfaulhab@redhat.com' },
-  { from: 'knoblich@redhat.com' },
-  { from: 'delisa@redhat.com' },
-  { from: 'rlindner@redhat.com' },
-  { from: 'juhoffma@redhat.com' },
-  { from: 'buddy@redhat.com' },
-  { from: 'jhoffmann@redhat.com' },
-  { from: 'karsten.gresch@redhat.com' },
-  { from: 'kgresch@redhat.com' },
-];
+local favorites = {
+  or: [
+    { from: 'bsutter@redhat.com' },
+    { from: 'mpfuetzn@redhat.com' },
+    { from: 'matthias.pfuetzner@redhat.com' },
+    { from: 'mpfuetzner@redhat.com' },
+    { from: 'rbohne@redhat.com' },
+    { from: 'rbo@redhat.com' },
+    { from: 'robert.bohne@redhat.com' },
+    { from: 'sfaulhab@redhat.com' },
+    { from: 'knoblich@redhat.com' },
+    { from: 'delisa@redhat.com' },
+    { from: 'rlindner@redhat.com' },
+    { from: 'juhoffma@redhat.com' },
+    { from: 'buddy@redhat.com' },
+    { from: 'jhoffmann@redhat.com' },
+    { from: 'karsten.gresch@redhat.com' },
+    { from: 'kgresch@redhat.com' },
+  ]
+};
 
 local label_archive(filter, label) =
   [
@@ -37,7 +41,7 @@ local label_archive(filter, label) =
   ]
 ;
 
-local rh_mailing_list(name, label = '') =
+local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
   local labels =
       if label == '' then
           [ std.join('/', std.splitLimit(name, '-', 1) ) ]
@@ -51,7 +55,8 @@ local rh_mailing_list(name, label = '') =
         filter: {
           and: [
             mailing_list_identifier,
-          ] + toMe,
+            toMe,
+          ]
         },
         actions: {
           archive: false,
@@ -64,7 +69,8 @@ local rh_mailing_list(name, label = '') =
         filter: { 
           and: [
             mailing_list_identifier,
-          ] + favorites,
+            favorites,
+          ],
         },
         actions: {
           archive: false,
@@ -82,7 +88,7 @@ local rh_mailing_list(name, label = '') =
         actions: {
           archive: true,
           markSpam: false,
-          markRead: true,
+          markRead: defaultMarkAsRead,
           labels: labels
         }
       }
@@ -97,11 +103,11 @@ local rh_mailing_list(name, label = '') =
     email: "jjanz@redhat.com"
   },
   rules:
-    rh_mailing_list('announce-list', 'announce') +
+    rh_mailing_list('announce-list', 'announce', false) +
     rh_mailing_list('memo-list', 'discussion/memo') +
     rh_mailing_list('openshift-sme', 'sme/openshift') +
-    rh_mailing_list('sa-dach', 'sa/dach') +
-    rh_mailing_list('sme-eap', 'sme/eap') +
+    rh_mailing_list('sa-dach', 'sa/dach', false) +
+    rh_mailing_list('sme-eap', 'sme/eap', false) +
     label_archive({from: 'kundenservice@egencia.de'}, '_tracker/egencia') +
     label_archive({from: 'people-helpdesk@redhat.com'}, '_tracker/rh_service_now') +
     label_archive({from: 'redhat@service-now.com'}, '_tracker/rh_service_now') +
@@ -109,6 +115,7 @@ local rh_mailing_list(name, label = '') =
     label_archive({from: 'orangehrmlive.com'}, '_tracker/orange') +
     label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
     label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
+    label_archive({from: 'noreply@globalengagementsolutions.com'}, '_tracker/rewardzone') +
     [
       {
         filter: { query: "list:(.github.com)" },
@@ -128,6 +135,17 @@ local rh_mailing_list(name, label = '') =
             archive: true,
             markSpam: false,
             labels: [ "_tracker/gh" ]
+        }
+      },
+      {
+        filter: {
+          from: 'noreply@opentlc.com'
+        },
+        actions: {
+            archive: true,
+            markRead: false,
+            markSpam: false,
+            labels: [ "_tracker/rhpds" ]
         }
       },
       {

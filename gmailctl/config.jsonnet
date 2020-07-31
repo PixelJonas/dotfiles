@@ -150,6 +150,17 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
       },
       {
         filter: {
+          from: 'noreply@statuspage.io'
+        },
+        actions: {
+            archive: true,
+            markRead: false,
+            markSpam: false,
+            labels: [ "_tracker/rhpds_status" ]
+        }
+      },
+      {
+        filter: {
             query: "to:(jjanz@redhat.com OR jonas.janz@redhat.com) (*.ics OR *.vcs) has:attachment"
         },
         actions: {

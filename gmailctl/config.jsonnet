@@ -108,6 +108,7 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
     rh_mailing_list('openshift-sme', 'sme/openshift') +
     rh_mailing_list('sa-dach', 'sa/dach', false) +
     rh_mailing_list('sme-eap', 'sme/eap', false) +
+    rh_mailing_list('sme-rh-sso', 'sme/rh-sso', false) +
     label_archive({from: 'kundenservice@egencia.de'}, '_tracker/egencia') +
     label_archive({from: 'people-helpdesk@redhat.com'}, '_tracker/rh_service_now') +
     label_archive({from: 'redhat@service-now.com'}, '_tracker/rh_service_now') +

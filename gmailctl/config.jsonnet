@@ -114,6 +114,7 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
     label_archive({from: 'redhat@service-now.com'}, '_tracker/rh_service_now') +
     label_archive({from: 'workflow@redhat.com'}, '_tracker/ebs_workflow') +
     label_archive({from: 'orangehrmlive.com'}, '_tracker/orange') +
+    label_archive({from: 'redhat@myworkday.com'}, '_tracker/workday') +
     label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
     label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
     label_archive({from: 'noreply@globalengagementsolutions.com'}, '_tracker/rewardzone') +
@@ -136,17 +137,6 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
             archive: true,
             markSpam: false,
             labels: [ "_tracker/gh" ]
-        }
-      },
-      {
-        filter: {
-          from: 'noreply@opentlc.com'
-        },
-        actions: {
-            archive: true,
-            markRead: false,
-            markSpam: false,
-            labels: [ "_tracker/rhpds" ]
         }
       },
       {

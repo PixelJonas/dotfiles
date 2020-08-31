@@ -25,6 +25,7 @@ local favorites = {
     { from: 'jhoffmann@redhat.com' },
     { from: 'karsten.gresch@redhat.com' },
     { from: 'kgresch@redhat.com' },
+    { from: 'reagan.reynolds@redhat.com' },
   ]
 };
 

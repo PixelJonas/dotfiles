@@ -1,6 +1,21 @@
 {
+  "tabnine.experimentalAutoImports": true,
+  "editor.tabSize": 2,
+  "editor.suggestSelection": "first",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "files.autoSave": "afterDelay",
+  "files.associations": {
+    "**/*.yml": "ansible"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "workbench.iconTheme": "vscode-icons",
+  "git.autofetch": true,
   "gitlens.keymap": "alternate",
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
   "gitlens.advanced.messages": {
     "suppressCommitHasNoPreviousCommitWarning": false,
     "suppressCommitNotFoundWarning": false,
@@ -12,21 +27,39 @@
     "suppressShowKeyBindingsNotice": true
   },
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-  "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
-  "git.autofetch": true,
-  "gitlens.historyExplorer.enabled": true,
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
+  "terminal.integrated.fontFamily": "SourceCodePro-Light",
   "vsicons.projectDetection.disableDetect": true,
-  "git.enableSmartCommit": true,
-  "git.confirmSync": false,
   "vsicons.dontShowNewVersionMessage": true,
   "go.autocompleteUnimportedPackages": true,
   "go.inferGopath": true,
   "remote.SSH.showLoginTerminal": true,
-  "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
-  "editor.tabSize": 2,
-  "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "files.autoSave": "afterDelay",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
+  "hediet.vscode-drawio.local-storage": "eyIuZHJhd2lvLWNvbmZpZyI6IntcImxhbmd1YWdlXCI6XCJcIixcImN1c3RvbUZvbnRzXCI6W10sXCJsaWJyYXJpZXNcIjpcIlJIIC0gRGV0YWlsIERpYWdyYW1zO1JIIC0gTG9naWNhbCBEaWFncmFtcztSSCAtIFNjaGVtYXRpYyBEaWFncmFtcztSSCAtIEljb24gTGlicmFyeTtnZW5lcmFsXCIsXCJjdXN0b21MaWJyYXJpZXNcIjpbXCJMLnNjcmF0Y2hwYWRcIl0sXCJwbHVnaW5zXCI6W10sXCJyZWNlbnRDb2xvcnNcIjpbXSxcImZvcm1hdFdpZHRoXCI6XCIyNDBcIixcImNyZWF0ZVRhcmdldFwiOmZhbHNlLFwicGFnZUZvcm1hdFwiOntcInhcIjowLFwieVwiOjAsXCJ3aWR0aFwiOjgyNyxcImhlaWdodFwiOjExNjl9LFwic2VhcmNoXCI6dHJ1ZSxcInNob3dTdGFydFNjcmVlblwiOnRydWUsXCJncmlkQ29sb3JcIjpcIiNkMGQwZDBcIixcImRhcmtHcmlkQ29sb3JcIjpcIiM2ZTZlNmVcIixcImF1dG9zYXZlXCI6dHJ1ZSxcInJlc2l6ZUltYWdlc1wiOm51bGwsXCJvcGVuQ291bnRlclwiOjAsXCJ2ZXJzaW9uXCI6MTgsXCJ1bml0XCI6MSxcImlzUnVsZXJPblwiOmZhbHNlLFwidWlcIjpcIlwifSJ9",
+  "hediet.vscode-drawio.theme": "atlas",
+  "hediet.vscode-drawio.online-url": "https://redhatdemocentral.gitlab.io/portfolio-architecture-tooling/",
+  "hediet.vscode-drawio.codeLinkActivated": true,
+  "hediet.vscode-drawio.customFonts": ["Red Hat Text", "Red Hat Display"],
+  "hediet.vscode-drawio.customLibraries": [
+    {
+      "entryId": "RH - Detail Diagrams",
+      "file": "/Users/jonas/projects/portfolio-architecture-tooling/Libraries/Detail Diagrams",
+      "libName": "Detail Diagrams"
+    },
+    {
+      "entryId": "RH - Logical Diagrams",
+      "file": "/Users/jonas/projects/portfolio-architecture-tooling/Libraries/Logical Diagrams",
+      "libName": "Logical Diagrams"
+    },
+    {
+      "entryId": "RH - Schematic Diagrams",
+      "file": "/Users/jonas/projects/portfolio-architecture-tooling/Libraries/Schematic Diagrams",
+      "libName": "Schematic Diagrams"
+    },
+    {
+      "entryId": "RH - Icon Library",
+      "file": "/Users/jonas/projects/portfolio-architecture-tooling/Libraries/Icon Library",
+      "libName": "Icon Library"
+    }
+  ]
 }

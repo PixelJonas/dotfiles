@@ -120,6 +120,7 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
     label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
     label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
     label_archive({from: 'noreply@globalengagementsolutions.com'}, '_tracker/rewardzone') +
+    label_archive({from: 'redhat@globalengagementsolutions.com'}, '_tracker/rewardzone') +
     [
       {
         filter: { query: "list:(.github.com)" },

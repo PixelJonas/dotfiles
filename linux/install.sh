@@ -37,6 +37,12 @@ if test ! -d "$HOME/.local/share/fonts"; then
   rm -rf "${DOTFILE_HOME}/linux/fonts"
 fi
 
+if test ! $(command -v zsh); then
+  echo "Installing ZSH"
+  sudo apt --fix-broken install
+  sudo apt install zsh
+fi
+
 # Configure KDE
 kwriteconfig5 --file $HOME/.config/kwinrc --group Windows --key BorderlessMaximizedWindows false
 

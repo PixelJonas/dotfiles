@@ -17,6 +17,7 @@ if test ! $(command -v brew); then
     info "installing build-essential using apt"
     sudo apt update
     sudo apt install -y build-essential
+    sudo apt --fix-broken
   fi
 
   # Install the correct homebrew for each OS type

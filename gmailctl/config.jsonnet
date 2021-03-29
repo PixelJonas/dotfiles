@@ -10,9 +10,6 @@ local toMe = {
 local favorites = {
   or: [
     { from: 'bsutter@redhat.com' },
-    { from: 'mpfuetzn@redhat.com' },
-    { from: 'matthias.pfuetzner@redhat.com' },
-    { from: 'mpfuetzner@redhat.com' },
     { from: 'rbohne@redhat.com' },
     { from: 'rbo@redhat.com' },
     { from: 'robert.bohne@redhat.com' },
@@ -26,6 +23,8 @@ local favorites = {
     { from: 'karsten.gresch@redhat.com' },
     { from: 'kgresch@redhat.com' },
     { from: 'reagan.reynolds@redhat.com' },
+    { from: 'ckoep@redhat.com' },
+    { from: 'cko@redhat.com' },
   ]
 };
 
@@ -119,6 +118,7 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
     label_archive({from: 'redhat@myworkday.com'}, '_tracker/workday') +
     label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
     label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
+    label_archive({from: 'MailRelay@varicent.com'}, '_tracker/varicent') +
     label_archive({from: 'noreply@globalengagementsolutions.com'}, '_tracker/rewardzone') +
     label_archive({from: 'redhat@globalengagementsolutions.com'}, '_tracker/rewardzone') +
     [

@@ -139,6 +139,8 @@ else
   fail "error installing pre-requisites"
 fi
 
+mkdir -p "${HOME}/bin"
+
 setup_gitconfig
 install_dotfiles
 

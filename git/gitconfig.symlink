@@ -7,7 +7,6 @@
   co = checkout
   promote = !$DOTFILE_HOME/bin/git-promote
   wtf     = !$DOTFILE_HOME/bin/git-wtf
-  rank-contributors = !$DOTFILE_HOME/bin/git-rank-contributors
   count   = !git shortlog -sn
 [color]
   diff = auto

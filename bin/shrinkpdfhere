@@ -1,0 +1,2 @@
+dpi=${1:-150}
+find . -type f -name '*.pdf' -exec sh -c 'shrinkpdf "$1" "$(dirname "$1")"/"$(basename "$1" .pdf)".compressed.pdf $2' sh {} "$dpi" \;

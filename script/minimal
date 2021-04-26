@@ -37,9 +37,9 @@ setup_gitconfig() {
     fi
 
     user ' - What is your github author name?'
-    read -e git_authorname
+    git_authorname=PixelJonas
     user ' - What is your github author email?'
-    read -e git_authoremail
+    git_authoremail=jonas@janz.digital
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example >git/gitconfig.local.symlink
 

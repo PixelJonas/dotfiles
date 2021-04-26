@@ -1,2 +1,4 @@
 #!/usr/bin/env zsh
-source <(oc completion zsh)
+if test ! $(command -v oc); then
+  source <(oc completion zsh)
+fi

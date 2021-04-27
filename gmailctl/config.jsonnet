@@ -148,7 +148,7 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
         },
         actions: {
             archive: true,
-            markRead: false,
+            markRead: true,
             markSpam: false,
             labels: [ "_tracker/rhpds_status" ]
         }
@@ -158,10 +158,19 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
             query: "to:(jjanz@redhat.com OR jonas.janz@redhat.com) (*.ics OR *.vcs) has:attachment"
         },
         actions: {
-            labels: [
-            "invitations"
-            ],
+            labels: ["invitations"],
             archive: true,
+            markSpam: false
+        }
+      },
+      {
+        filter: {
+            subject: 'Summary: Weekly Team Germany Call'
+        },
+        actions: {
+            labels: ["redhat administration"],
+            archive: true,
+            markRead: true,
             markSpam: false
         }
       },

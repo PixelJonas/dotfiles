@@ -1,11 +1,5 @@
-# rationalise . so you can navigate via ..../<directory> => ../../../<directgory>
+# Make CTRL+D exit the current session
 
-rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-zle -N rationalise-dot
-bindkey . rationalise-dot
+exit_zsh() { exit }
+zle -N exit_zsh
+bindkey '^D' exit_zsh

@@ -174,5 +174,19 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
             markSpam: false
         }
       },
+      {
+        filter: {
+            and: [
+              {subject: 'OpenShift Anwendertreffen: You\'ve successfully registered.'},
+              {from: 'rbohne@redhat.com'}
+            ],
+        },
+        actions: {
+            labels: ["redhat administration/OpenShift Anwendertreffen/invitation"],
+            archive: true,
+            markRead: true,
+            markSpam: false
+        }
+      },
     ]
 }

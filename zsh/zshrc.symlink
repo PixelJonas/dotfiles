@@ -1,6 +1,9 @@
 # shortcut to this dotfiles path is $DOTFILE_HOME
 export DOTFILE_HOME=$HOME/.dotfiles
 
+# disable the update prompt and perform an auto-update
+export DISABLE_UPDATE_PROMPT=true
+
 # your project folder that we can `c [tab]` to
 export PROJECTS=/mnt/d/projects
 

@@ -6,6 +6,7 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER=jonas
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time kubecontext time status)
 

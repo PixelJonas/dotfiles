@@ -176,6 +176,17 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
       },
       {
         filter: {
+            subject: 'GitOps CoP Sync'
+        },
+        actions: {
+            labels: ["sme/gitops"],
+            archive: true,
+            markRead: false,
+            markSpam: false
+        }
+      },
+      {
+        filter: {
             and: [
               {subject: 'OpenShift Anwendertreffen: You\'ve successfully registered.'},
               {from: 'rbohne@redhat.com'}

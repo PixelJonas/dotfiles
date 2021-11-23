@@ -1,5 +1,6 @@
 # shortcut to this dotfiles path is $DOTFILE_HOME
 export DOTFILE_HOME=$HOME/.dotfiles
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # disable the update prompt and perform an auto-update
 export DISABLE_UPDATE_PROMPT=true

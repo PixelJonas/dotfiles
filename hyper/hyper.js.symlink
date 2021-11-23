@@ -140,12 +140,6 @@ module.exports = {
     webGLRenderer: false,
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-    hypest: {
-      darkmode: true, 
-      borders: true,
-      vibrancy: false,
-      accentColor: 'red'
-    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -155,7 +149,7 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    "hyper-hypest",
+    "nord-hyper",
     "hyper-search",
     "hyper-tab-icons",
     "hyper-highlight-active-pane"

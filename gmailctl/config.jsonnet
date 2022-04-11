@@ -199,5 +199,16 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
             markSpam: false
         }
       },
+      {
+        filter: {
+            subject: 'Go- No Go-Kurse in der KW'
+        },
+        actions: {
+          archive: true,
+          markRead: true,
+          markSpam: false,
+          delete: true
+        }
+      }
     ]
 }

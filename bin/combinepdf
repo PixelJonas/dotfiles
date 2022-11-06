@@ -1,0 +1,39 @@
+#!/bin/sh
+resolution="100"
+
+combine ()
+{
+	gs					\
+	  -q -dNOPAUSE -dBATCH -dSAFER		\
+	  -sDEVICE=pdfwrite			\
+	  -dCompatibilityLevel=1.3		\
+	  -dPDFSETTINGS=/screen			\
+	  -dEmbedAllFonts=true			\
+	  -dSubsetFonts=true			\
+	  -dAutoRotatePages=/None		\
+	  -dColorImageDownsampleType=/Bicubic	\
+	  -dColorImageResolution="$resolution"		\
+	  -dGrayImageDownsampleType=/Bicubic	\
+	  -dGrayImageResolution="$resolution"		\
+	  -dMonoImageDownsampleType=/Subsample	\
+    -dMonoImageResolution="$resolution"		\
+	  -sOutputFile="combined.pdf"			\
+	  "$@"
+}
+
+usage ()
+{
+	echo "Combines multiple PDF files with Ghostscript. The combined PDF will be called combined.pdf"
+	echo "Not guaranteed to succeed, but usually works."
+	echo "  Usage: combinepdf file1.pdf file2.pdf [...]"
+}
+
+# Need at least 1 input file:
+if [ -z "$1" ]; then
+	usage "$0"
+	exit 1
+fi
+
+combine "$@" || exit $?
+
+echo "finished."

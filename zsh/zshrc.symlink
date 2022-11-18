@@ -1,5 +1,34 @@
 # shortcut to this dotfiles path is $DOTFILE_HOME
 export DOTFILE_HOME=$HOME/.dotfiles
+
+# load antigen
+source $DOTFILE_HOME/antigen/antigen.zsh
+
+# antigen config
+# Load oh-my-zsh library
+antigen use oh-my-zsh
+
+# Load bundles from the default repo (oh-my-zsh)
+antigen bundle git
+antigen bundle pj
+antigen bundle oc
+antigen bundle colored-man-pages 
+antigen bundle ssh-agent
+
+# Load bundles from external repos
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle MichaelAquilina/zsh-you-should-use
+
+POWERLEVEL10K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/romkatv/powerlevel10
+
+# Select theme
+antigen theme romkatv/powerlevel10k powerlevel10k
+
+# Tell Antigen that you're done
+antigen apply
+
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # disable the update prompt and perform an auto-update

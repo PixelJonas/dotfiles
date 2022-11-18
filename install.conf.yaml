@@ -1,0 +1,20 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+# set up symlink
+- link:
+    ~/.zshrc: zsh/zshrc.symlink
+    ~/.gitconfig: git/gitconfig.symlink
+    ~/.gitignore: git/gitignore.symlink
+    ~/.vimrc: vim/vimrc.symlink
+
+# execute shell cmd/script
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    # here you can put all the shell script, dotbot will execute them accordingly
+    # - [$DOTFILE_HOME/script/bootstrap]
+    # - [source $HOME/.zshrc]
+

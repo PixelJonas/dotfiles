@@ -15,6 +15,7 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     # here you can put all the shell script, dotbot will execute them accordingly
-    # - [$DOTFILE_HOME/script/bootstrap]
-    # - [source $HOME/.zshrc]
+    - [$DOTFILE_HOME/script/pre-install]
+    - [$DOTFILE_HOME/script/install]
+    - [source $HOME/.zshrc]
 

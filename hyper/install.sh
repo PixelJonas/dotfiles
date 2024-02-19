@@ -6,7 +6,7 @@
 
 if test ! $(command -v hyper) && test $(command -v brew); then
   echo "  Installing hyper for you."
-  brew cask install hyper
+  brew install --cask install hyper
 fi
 
 exit 0

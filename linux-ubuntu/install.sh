@@ -8,28 +8,6 @@ fi
 cd "$(dirname "$0")/.."
 DOTFILE_HOME=$(pwd -P)
 
-if test ! $(command -v hyper); then
-  echo "Installing Hyper.JS"
-#  curl -vsSL https://releases.hyper.is/download/deb > "${DOTFILE_HOME}/linux/hyper.deb"
-#  sudo dpkg -i "${DOTFILE_HOME}/linux/hyper.deb"
-#  rm "${DOTFILE_HOME}/linux/hyper.deb"
-fi
-
-if test ! $(command -v code) && test "$(command -v apt)"; then
-#  echo "Installing Visual Studio Code"
-#  curl -vsSL https://go.microsoft.com/fwlink/?LinkID=760868 > "${DOTFILE_HOME}/linux/vscode.deb"
-#  sudo apt install -y "${DOTFILE_HOME}/linux/vscode.deb"
-#  rm "${DOTFILE_HOME}/linux/vscode.deb"
-  cp "${DOTFILE_HOME}/vscode/settings.json" "${HOME}/.config/Code/User/settings.json"
-fi
-
-if test ! -d "$HOME/.local/share/fonts"; then
-  echo "Installing Powerline Fonts"
-  git clone https://github.com/powerline/fonts.git --depth=1 "${DOTFILE_HOME}/linux/fonts"
-  "${DOTFILE_HOME}/linux/fonts/install.sh"
-  rm -rf "${DOTFILE_HOME}/linux/fonts"
-fi
-
 if test ! $(command -v zsh) && test "$(command -v apt)"; then
   echo "Installing ZSH"
   sudo apt --fix-broken install -y

@@ -2,6 +2,9 @@
 export DOTFILE_HOME=$HOME/.dotfiles
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+autoload -U compinit
+compinit
+
 # disable the update prompt and perform an auto-update
 export DISABLE_UPDATE_PROMPT=true
 
@@ -42,9 +45,6 @@ done
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
-
-autoload -U compinit
-compinit
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}

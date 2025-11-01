@@ -1,10 +1,10 @@
 local lib = import 'gmailctl.libsonnet';
 
-local toMe = { 
+local toMe = {
   or: [
     { to: 'jjanz@redhat.com' },
     { to: 'jonas.janz@redhat.com' },
-  ]
+  ],
 };
 
 local favorites = {
@@ -25,28 +25,28 @@ local favorites = {
     { from: 'reagan.reynolds@redhat.com' },
     { from: 'ckoep@redhat.com' },
     { from: 'cko@redhat.com' },
-  ]
+  ],
 };
 
 local label_archive(filter, label) =
   [
-  {
-    filter: filter,
-    actions: {
-      archive: true,
-      markSpam: false,
-      labels: [ label ]
-    }
-  }
+    {
+      filter: filter,
+      actions: {
+        archive: true,
+        markSpam: false,
+        labels: [label],
+      },
+    },
   ]
 ;
 
-local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
+local rh_mailing_list(name, label='', defaultMarkAsRead=true) =
   local labels =
-      if label == '' then
-          [ std.join('/', std.splitLimit(name, '-', 1) ) ]
-      else
-          [ label ]
+    if label == '' then
+      [std.join('/', std.splitLimit(name, '-', 1))]
+    else
+      [label]
   ;
   local mailing_list_identifier = { list: name + '.redhat.com' };
   lib.chainFilters(
@@ -56,17 +56,17 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
           and: [
             mailing_list_identifier,
             toMe,
-          ]
+          ],
         },
         actions: {
           archive: false,
           markSpam: false,
           markRead: false,
-          labels: labels
-        }
+          labels: labels,
+        },
       },
       {
-        filter: { 
+        filter: {
           and: [
             mailing_list_identifier,
             favorites,
@@ -76,8 +76,8 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
           archive: false,
           markSpam: false,
           markRead: false,
-          labels: labels
-        }
+          labels: labels,
+        },
       },
       {
         filter: {
@@ -89,126 +89,207 @@ local rh_mailing_list(name, label = '', defaultMarkAsRead = true) =
           archive: true,
           markSpam: false,
           markRead: defaultMarkAsRead,
-          labels: labels
-        }
-      }
+          labels: labels,
+        },
+      },
     ]
   )
 ;
 
 {
-  version: "v1alpha3",
+  version: 'v1alpha3',
   author: {
-    name: "Jonas Janz",
-    email: "jjanz@redhat.com"
+    name: 'Jonas Janz',
+    email: 'jjanz@redhat.com',
   },
   rules:
     rh_mailing_list('announce-list', 'announce', false) +
     rh_mailing_list('memo-list', 'discussion/memo') +
     rh_mailing_list('openshift-sme', 'sme/openshift') +
     rh_mailing_list('sa-dach', 'sa/dach', false) +
-    rh_mailing_list('sme-eap', 'sme/eap', false) +
-    rh_mailing_list('sme-rh-sso', 'sme/rh-sso', false) +
-    rh_mailing_list('finservda', 'FSI', false) +
-    label_archive({from: 'kundenservice@egencia.de'}, '_tracker/egencia') +
-    label_archive({from: 'people-helpdesk@redhat.com'}, '_tracker/rh_service_now') +
-    label_archive({from: 'redhat@service-now.com'}, '_tracker/rh_service_now') +
-    label_archive({from: 'workflow@redhat.com'}, '_tracker/ebs_workflow') +
-    label_archive({from: 'orangehrmlive.com'}, '_tracker/orange') +
-    label_archive({from: 'redhat@myworkday.com'}, '_tracker/workday') +
-    label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
-    label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
-    label_archive({from: 'MailRelay@varicent.com'}, '_tracker/varicent') +
-    label_archive({from: 'noreply@globalengagementsolutions.com'}, '_tracker/rewardzone') +
-    label_archive({from: 'redhat@globalengagementsolutions.com'}, '_tracker/rewardzone') +
+    rh_mailing_list('sme-eap', 'sme/eap', true) +
+    rh_mailing_list('sme-rh-sso', 'sme/rh-sso', true) +
+    rh_mailing_list('finservda', 'FSI', true) +
+    rh_mailing_list('devx-extended', 'sme/devx', true) +
+    label_archive({ from: 'kundenservice@egencia.de' }, '_tracker/egencia') +
+    label_archive({ from: 'Andrew-Brown-Communication@redhat.com' }, '_tracker/newsletter') +
+    label_archive({ from: 'Red Hat EMEA Weekly News' }, '_tracker/newsletter') +
+    label_archive({ from: 'people-helpdesk@redhat.com' }, '_tracker/rh_service_now') +
+    label_archive({ from: 'redhat@service-now.com' }, '_tracker/rh_service_now') +
+    label_archive({ from: 'workflow@redhat.com' }, '_tracker/ebs_workflow') +
+    label_archive({ from: 'orangehrmlive.com' }, '_tracker/orange') +
+    label_archive({ from: 'redhat@myworkday.com' }, '_tracker/workday') +
+    label_archive({ from: 'concursolutions.com' }, '_tracker/concur') +
+    label_archive({ from: 'errata@redhat.com' }, '_tracker/errata') +
+    label_archive({ from: 'MailRelay@varicent.com' }, '_tracker/varicent') +
+    label_archive({ from: 'noreply@globalengagementsolutions.com' }, '_tracker/rewardzone') +
+    label_archive({ from: 'redhat@globalengagementsolutions.com' }, '_tracker/rewardzone') +
     [
       {
-        filter: { query: "list:(.github.com)" },
+        filter: { query: 'list:(.github.com)' },
         actions: {
-            markSpam: false,
-            labels: [ "_tracker/gh" ]
-        }
+          markSpam: false,
+          labels: ['_tracker/gh'],
+        },
       },
       {
         filter: {
-            and: [
-            { list: "(.github.com)" },
-            { to: "-mention@noreply.github.com" },
-            ]
+          and: [
+            { list: '(.github.com)' },
+            { to: '-mention@noreply.github.com' },
+          ],
         },
         actions: {
-            archive: true,
-            markSpam: false,
-            labels: [ "_tracker/gh" ]
-        }
-      },
-      {
-        filter: {
-          from: 'noreply@statuspage.io'
+          archive: true,
+          markSpam: false,
+          labels: ['_tracker/gh'],
         },
-        actions: {
-            archive: true,
-            markRead: true,
-            markSpam: false,
-            labels: [ "_tracker/rhpds_status" ]
-        }
       },
       {
         filter: {
-            query: "to:(jjanz@redhat.com OR jonas.janz@redhat.com) (*.ics OR *.vcs) has:attachment"
-        },
-        actions: {
-            labels: ["invitations"],
-            archive: true,
-            markSpam: false
-        }
-      },
-      {
-        filter: {
-            subject: 'Summary: Weekly Team Germany Call'
-        },
-        actions: {
-            labels: ["redhat administration"],
-            archive: true,
-            markRead: true,
-            markSpam: false
-        }
-      },
-      {
-        filter: {
-            subject: 'GitOps CoP Sync'
-        },
-        actions: {
-            labels: ["sme/gitops"],
-            archive: true,
-            markRead: false,
-            markSpam: false
-        }
-      },
-      {
-        filter: {
-            and: [
-              {subject: 'OpenShift Anwendertreffen: You\'ve successfully registered.'},
-              {from: 'rbohne@redhat.com'}
-            ],
-        },
-        actions: {
-            labels: ["redhat administration/OpenShift Anwendertreffen/invitation"],
-            archive: true,
-            markRead: true,
-            markSpam: false
-        }
-      },
-      {
-        filter: {
-            subject: 'Go- No Go-Kurse in der KW'
+          from: 'noreply@statuspage.io',
         },
         actions: {
           archive: true,
           markRead: true,
           markSpam: false,
-          delete: true
-        }
-      }
-    ]
+          labels: ['_tracker/rhpds_status'],
+        },
+      },
+      {
+        filter: {
+          query: 'to:(jjanz@redhat.com OR jonas.janz@redhat.com) (*.ics OR *.vcs) has:attachment',
+        },
+        actions: {
+          labels: ['invitations'],
+          archive: true,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          subject: 'Summary: Weekly Team Germany Call',
+        },
+        actions: {
+          labels: ['redhat administration'],
+          archive: true,
+          markRead: true,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          or: [
+            { subject: '[APAC/AWS]' },
+            { subject: '[APAC/Azure]' },
+            { subject: '[APAC/GCP]' },
+            { subject: '[NA/AWS]' },
+            { subject: '[NA/Azure]' },
+            { subject: '[NA/GCP]' },
+            { subject: '[LATAM/AWS]' },
+            { subject: '[LATAM/Azure]' },
+            { subject: '[LATAM/GCP]' },
+          ],
+        },
+        actions: {
+          labels: ['_Cloud Growth/z_calculator_other'],
+          archive: true,
+          markRead: true,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          or: [
+            { subject: '[EMEA/AWS]' },
+            { subject: '[EMEA/Azure]' },
+          ],
+        },
+        actions: {
+          labels: ['_Cloud Growth/emea_calculator'],
+          archive: true,
+          markRead: false,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          or: [
+            { subject: 'Cloud Marketplaces & Private Offers Monthly Newsletter' },
+            { subject: 'Google EMEA update' },
+          ],
+
+        },
+        actions: {
+          labels: ['_Cloud Growth/newsletter'],
+          archive: true,
+          markRead: false,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          subject: 'GitOps CoP Sync',
+        },
+        actions: {
+          labels: ['sme/gitops'],
+          archive: true,
+          markRead: false,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          and: [
+            { subject: "OpenShift Anwendertreffen: You've successfully registered." },
+            { from: 'rbohne@redhat.com' },
+          ],
+        },
+        actions: {
+          labels: ['redhat administration/OpenShift Anwendertreffen/invitation'],
+          archive: true,
+          markRead: true,
+          markSpam: false,
+        },
+      },
+      {
+        filter: {
+          subject: 'Go- No Go-Kurse in der KW',
+        },
+        actions: {
+          archive: true,
+          markRead: true,
+          markSpam: false,
+          delete: true,
+        },
+      },
+      {
+        filter: {
+          subject: 'You may now Check-in to your Reservation',
+        },
+        actions: {
+          archive: true,
+          markRead: true,
+          markSpam: false,
+          delete: true,
+        },
+      },
+      {
+        filter: {
+          and: [
+            { query: 'older_than:1m' },
+            { query: 'is:read' },
+            { not: { query: 'is:snoozed' } },
+            { query: 'label:inbox' },
+          ],
+        },
+        actions: {
+          archive: true,
+          delete: false,
+          labels: [
+            'redhat administration/archiv',
+          ],
+        },
+      },
+    ],
 }

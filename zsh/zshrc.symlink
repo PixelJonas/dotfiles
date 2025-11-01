@@ -43,6 +43,8 @@ if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
+export PATH=/var/home/jjanz/.local/share/Steam/compatibilitytools.d/SteamTinkerLaunch:$PATH
+
 autoload -U compinit
 compinit
 

@@ -2,6 +2,9 @@
 export DOTFILE_HOME=$HOME/.dotfiles
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+autoload -U compinit
+compinit
+
 # disable the update prompt and perform an auto-update
 export DISABLE_UPDATE_PROMPT=true
 

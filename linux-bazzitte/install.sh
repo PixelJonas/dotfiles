@@ -40,5 +40,5 @@ fi
 
 # dconf settings
 if test $(command -v dconf); then
-    dconf load / < "$(pwd)/d.conf"
+    dconf load / < "$(pwd)/linux-bazzitte/d.conf"
 fi

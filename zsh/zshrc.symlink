@@ -1,9 +1,5 @@
 # shortcut to this dotfiles path is $DOTFILE_HOME
 export DOTFILE_HOME=$HOME/.dotfiles
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
-autoload -U compinit
-compinit
 
 # disable the update prompt and perform an auto-update
 export DISABLE_UPDATE_PROMPT=true
@@ -15,7 +11,9 @@ export PROJECTS=/mnt/d/projects
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
 fi
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
@@ -49,7 +47,7 @@ fi
 export PATH=/var/home/jjanz/.local/share/Steam/compatibilitytools.d/SteamTinkerLaunch:$PATH
 
 autoload -U compinit
-compinit
+compinit -i
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}

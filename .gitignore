@@ -2,3 +2,5 @@ git/gitconfig.local.symlink
 
 homebrew/homebrew.path.zsh
 homebrew/Brewfile.lock.json
+
+.claude

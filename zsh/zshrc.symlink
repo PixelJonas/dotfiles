@@ -1,9 +1,7 @@
 # shortcut to this dotfiles path is $DOTFILE_HOME
 export DOTFILE_HOME=$HOME/.dotfiles
-
 # disable the update prompt and perform an auto-update
 export DISABLE_UPDATE_PROMPT=true
-
 # your project folder that we can `c [tab]` to
 export PROJECTS=/mnt/d/projects
 
@@ -66,7 +64,6 @@ done
 
 unset config_files
 
-# Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search

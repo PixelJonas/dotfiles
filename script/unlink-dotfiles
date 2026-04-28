@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+DOTFILE_HOME=$(pwd -P)
+
+while IFS= read -r src; do
+  dst="$HOME/.$(basename "${src%.*}")"
+  if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+    rm -v "$dst"
+  fi
+done < <(find -H "$DOTFILE_HOME" -maxdepth 2 -name '*.symlink' -not -path '*.git*')

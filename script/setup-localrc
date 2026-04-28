@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+#
+# setup-localrc — detect the current system, copy localrc.example to ~/.localrc
+# if it doesn't already exist, uncomment platform-specific sections, and
+# interactively prompt the user to fill in values they want to set.
+
+cd "$(dirname "$0")/.."
+DOTFILE_HOME=$(pwd -P)
+EXAMPLE="$DOTFILE_HOME/zsh/localrc.example"
+DEST="$HOME/.localrc"
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+info()    { printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"; }
+success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"; }
+warn()    { printf "\r  [ \033[0;33m!!\033[0m ] %s\n" "$1"; }
+ask()     { printf "\r  [ \033[0;33m??\033[0m ] %s " "$1"; }
+
+# ── detect platform ───────────────────────────────────────────────────────────
+
+detect_platform() {
+  local os
+  os="$(uname -s)"
+
+  case "$os" in
+    Darwin)
+      PLATFORM="macos"
+      ;;
+    Linux)
+      if [[ -f /etc/os-release ]]; then
+        # Bazzite is an immutable Fedora spin — detect via ID or VARIANT_ID
+        if grep -qiE '^ID=bazzite|^VARIANT_ID=bazzite' /etc/os-release; then
+          PLATFORM="bazzite"
+        elif grep -qi '^ID=.*ubuntu\|^ID_LIKE=.*ubuntu' /etc/os-release; then
+          PLATFORM="ubuntu"
+        else
+          PLATFORM="linux"
+        fi
+      else
+        PLATFORM="linux"
+      fi
+      ;;
+    *)
+      PLATFORM="unknown"
+      ;;
+  esac
+
+  info "Detected platform: $PLATFORM"
+}
+
+# ── copy & platform-uncomment ─────────────────────────────────────────────────
+
+setup_localrc() {
+  if [[ -f "$DEST" ]]; then
+    success "~/.localrc already exists — skipping copy"
+    return 0
+  fi
+
+  info "Copying localrc.example to ~/.localrc"
+  cp "$EXAMPLE" "$DEST"
+
+  # Uncomment the Steam Tinker Launch PATH block — only on Bazzite
+  if [[ "$PLATFORM" == "bazzite" ]]; then
+    info "Enabling Bazzite/SteamTinkerLaunch PATH block"
+    # The block spans two comment lines; strip the leading '# ' from both
+    sed -i \
+      -e '/Linux\/Bazzite.*Steam Tinker Launch/{n; s|^# ||; n; s|^# ||}' \
+      "$DEST"
+  fi
+
+  success "~/.localrc created"
+}
+
+# ── interactive value prompts ─────────────────────────────────────────────────
+
+# prompt_value VAR DESCRIPTION
+#   Asks the user if they want to set VAR. On yes, reads the value and writes
+#   the export line into ~/.localrc (replacing the commented placeholder).
+#   On no/empty, the line stays commented.
+prompt_value() {
+  local var="$1"
+  local desc="$2"
+
+  ask "Set $var ($desc)? [y/N]"
+  read -r yn
+  echo
+
+  if [[ "$yn" =~ ^[Yy]$ ]]; then
+    ask "  Enter value for $var:"
+    read -r value
+    echo
+
+    if [[ -z "$value" ]]; then
+      warn "No value entered — leaving $var commented"
+      return
+    fi
+
+    # Replace the commented export line with an active one.
+    # Handles both '# export VAR=""' and '# export VAR=' patterns.
+    if grep -q "^# export ${var}" "$DEST"; then
+      sed -i "s|^# export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
+      success "Set $var"
+    else
+      # Line not present — append it
+      echo "export ${var}=\"${value}\"" >> "$DEST"
+      success "Appended $var"
+    fi
+  else
+    info "Skipping $var — keeping it commented"
+  fi
+}
+
+# prompt_projects — special handler for PROJECTS + PROJECT_PATHS (same value)
+prompt_projects() {
+  ask "Set PROJECTS directory (used by the \`c\` function)? [y/N]"
+  read -r yn
+  echo
+
+  if [[ "$yn" =~ ^[Yy]$ ]]; then
+    ask "  Enter path (default: $HOME/projects):"
+    read -r value
+    echo
+    value="${value:-$HOME/projects}"
+
+    sed -i "s|^# export PROJECTS=.*|export PROJECTS=\"${value}\"|" "$DEST"
+    sed -i "s|^# PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
+    success "Set PROJECTS → $value"
+  else
+    info "Skipping PROJECTS — keeping it commented"
+  fi
+}
+
+# ── main ──────────────────────────────────────────────────────────────────────
+
+echo ''
+detect_platform
+setup_localrc
+echo ''
+info "Let's configure ~/.localrc for this machine."
+info "Press Enter or 'n' to skip any value."
+echo ''
+
+prompt_projects
+prompt_value "GITHUB_TOKEN"     "Personal access token for GitHub"
+prompt_value "ANTHROPIC_API_KEY" "API key for Anthropic / Claude"
+
+echo ''
+success "~/.localrc is ready — edit it any time at $DEST"
+echo ''

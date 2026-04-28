@@ -1,3 +1,4 @@
+# gf <branch> — create a local tracking branch from origin/<branch>
 gf() {
   local branch=$1
   git checkout -b $branch origin/$branch

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+DOTFILE_HOME=$(pwd -P)
+
+echo "Checking symlinks..."
+
+errors=0
+while IFS= read -r src; do
+  dst="$HOME/.$(basename "${src%.*}")"
+  if [ ! -L "$dst" ]; then
+    echo "  MISSING: $dst"
+    errors=$((errors + 1))
+  elif [ "$(readlink "$dst")" != "$src" ]; then
+    echo "  WRONG TARGET: $dst -> $(readlink "$dst")"
+    errors=$((errors + 1))
+  else
+    echo "  ok: $dst"
+  fi
+done < <(find -H "$DOTFILE_HOME" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+
+if [ "$errors" -eq 0 ]; then
+  echo "All symlinks OK"
+else
+  echo "$errors symlink(s) have issues"
+  exit 1
+fi

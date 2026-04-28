@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.zsh text eol=lf
+*.symlink text eol=lf
+Makefile text eol=lf
+script/* text eol=lf
+bin/* text eol=lf

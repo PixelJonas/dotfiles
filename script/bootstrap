@@ -140,6 +140,7 @@ fi
 mkdir -p "${HOME}/bin"
 
 setup_gitconfig
+source "${DOTFILE_HOME}/script/setup-localrc"
 install_dotfiles
 
 info "installing dependencies"

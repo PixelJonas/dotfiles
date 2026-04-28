@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+DOTFILE_HOME=$(pwd -P)
+
+while IFS= read -r src; do
+  dst="$HOME/.$(basename "${src%.*}")"
+  if [ -L "$dst" ]; then
+    echo "  already linked: $dst"
+  else
+    ln -sv "$src" "$dst"
+  fi
+done < <(find -H "$DOTFILE_HOME" -maxdepth 2 -name '*.symlink' -not -path '*.git*')

@@ -1,0 +1,21 @@
+# ~/.localrc — machine-specific config, never committed to the dotfiles repo.
+# Copy this file to ~/.localrc and uncomment/fill in what applies to this machine.
+
+# Path to your projects directory (used by the `c` function and pj plugin)
+# export PROJECTS="$HOME/projects"
+
+# Additional project paths for the pj plugin
+# PROJECT_PATHS=($HOME/projects)
+
+# Git identity (if different from gitconfig.local)
+# export GIT_AUTHOR_NAME="Your Name"
+# export GIT_AUTHOR_EMAIL="you@example.com"
+
+# Machine-specific PATH additions
+# Linux/Bazzite — Steam Tinker Launch
+# [[ -d "/var/home/$USER/.local/share/Steam/compatibilitytools.d/SteamTinkerLaunch" ]] && \
+#   export PATH="/var/home/$USER/.local/share/Steam/compatibilitytools.d/SteamTinkerLaunch:$PATH"
+
+# Secrets / API keys
+# export GITHUB_TOKEN=""
+# export ANTHROPIC_API_KEY=""

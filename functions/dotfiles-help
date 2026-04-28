@@ -1,0 +1,13 @@
+#!/bin/zsh
+# dotfiles-help — print all custom functions and aliases with their descriptions
+
+echo ""
+echo "  Custom functions:"
+grep -rh '^#' "$DOTFILE_HOME/functions/" 2>/dev/null | grep -v '^#!/' | sed 's/^# /    /'
+
+echo ""
+echo "  Custom aliases (zsh):"
+grep -rh '^alias\|^gac\(\)\|^mcd\(\)\|^up\(\)\|^t\(\)\|^path\(\)' "$DOTFILE_HOME/"**/*.zsh 2>/dev/null \
+  | sed "s/alias /    /" | sed "s/=.*//" | sort -u
+
+echo ""

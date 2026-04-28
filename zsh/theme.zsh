@@ -3,6 +3,13 @@
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
+# Use starship as fallback on SSH sessions or when p10k/nerd fonts aren't available
+if [[ -n "$SSH_CONNECTION" ]] && command -v starship &>/dev/null; then
+  ZSH_THEME=""
+  eval "$(starship init zsh)"
+  return
+fi
+
 ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER=jonas
 

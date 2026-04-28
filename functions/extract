@@ -1,10 +1,5 @@
 #!/bin/sh
-#
-# Usage: extract <file>
-# Description: extracts archived files / mounts disk images
-# Note: .dmg/hdiutil is macOS-specific.
-#
-# credit: http://nparikh.org/notes/zshrc.txt
+# extract <file> — unpack any archive format; .dmg mount is macOS-only
 extract () {
     if [ -f $1 ]; then
         case $1 in

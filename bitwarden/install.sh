@@ -12,7 +12,7 @@ if test ! $(command -v bw) && test $(command -v brew); then
 fi
 
 if test -n $BITWARDEN_URL; then
-  BITWARDEN_URL="https://bitwarden.app.janz.digital"
+  BITWARDEN_URL="https://vault.janz.digital"
 fi
 bw config server "${BITWARDEN_URL}"
 

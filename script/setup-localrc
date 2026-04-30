@@ -82,61 +82,117 @@ setup_localrc() {
 
 # ── interactive value prompts ─────────────────────────────────────────────────
 
+# get_value VAR — print the current uncommented value of VAR (empty if unset).
+get_value() {
+  local var="$1"
+  local line
+  line=$(grep -E "^[[:space:]]*export ${var}=" "$DEST" 2>/dev/null | head -n1)
+  [[ -z "$line" ]] && return 0
+  printf '%s' "$line" | sed -E "s|^[[:space:]]*export ${var}=\"?([^\"]*)\"?[[:space:]]*$|\1|"
+}
+
+# write_value VAR VALUE — set or replace the export line for VAR in ~/.localrc.
+write_value() {
+  local var="$1"
+  local value="$2"
+
+  if grep -qE "^[[:space:]]*export ${var}=" "$DEST"; then
+    sedi "s|^[[:space:]]*export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
+  elif grep -q "^# export ${var}" "$DEST"; then
+    sedi "s|^# export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
+  else
+    echo "export ${var}=\"${value}\"" >> "$DEST"
+  fi
+}
+
 # prompt_value VAR DESCRIPTION
-#   Asks the user if they want to set VAR. On yes, reads the value and writes
-#   the export line into ~/.localrc (replacing the commented placeholder).
-#   On no/empty, the line stays commented.
+#   If VAR is already set in ~/.localrc, shows the current value and asks if the
+#   user wants to change it. Otherwise asks if they want to set it. Empty input
+#   leaves the existing state untouched.
 prompt_value() {
   local var="$1"
   local desc="$2"
+  local current value yn
+  current=$(get_value "$var")
+
+  if [[ -n "$current" ]]; then
+    ask "$var is set to \"$current\" — change it? [y/N]"
+    read -r yn
+    echo
+    if [[ ! "$yn" =~ ^[Yy]$ ]]; then
+      info "Keeping $var unchanged"
+      return
+    fi
+    ask "  Enter new value for $var:"
+    read -r value
+    echo
+    if [[ -z "$value" ]]; then
+      warn "No value entered — keeping $var unchanged"
+      return
+    fi
+    write_value "$var" "$value"
+    success "Updated $var"
+    return
+  fi
 
   ask "Set $var ($desc)? [y/N]"
   read -r yn
   echo
-
-  if [[ "$yn" =~ ^[Yy]$ ]]; then
-    ask "  Enter value for $var:"
-    read -r value
-    echo
-
-    if [[ -z "$value" ]]; then
-      warn "No value entered — leaving $var commented"
-      return
-    fi
-
-    # Replace the commented export line with an active one.
-    # Handles both '# export VAR=""' and '# export VAR=' patterns.
-    if grep -q "^# export ${var}" "$DEST"; then
-      sedi "s|^# export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
-      success "Set $var"
-    else
-      # Line not present — append it
-      echo "export ${var}=\"${value}\"" >> "$DEST"
-      success "Appended $var"
-    fi
-  else
+  if [[ ! "$yn" =~ ^[Yy]$ ]]; then
     info "Skipping $var — keeping it commented"
+    return
   fi
+  ask "  Enter value for $var:"
+  read -r value
+  echo
+  if [[ -z "$value" ]]; then
+    warn "No value entered — leaving $var commented"
+    return
+  fi
+  write_value "$var" "$value"
+  success "Set $var"
 }
 
-# prompt_projects — special handler for PROJECTS + PROJECT_PATHS (same value)
+# prompt_projects — special handler for PROJECTS + PROJECT_PATHS (same value).
 prompt_projects() {
-  ask "Set PROJECTS directory (used by the \`c\` function)? [y/N]"
-  read -r yn
-  echo
+  local current value yn
+  current=$(get_value "PROJECTS")
 
-  if [[ "$yn" =~ ^[Yy]$ ]]; then
+  if [[ -n "$current" ]]; then
+    ask "PROJECTS is set to \"$current\" — change it? [y/N]"
+    read -r yn
+    echo
+    if [[ ! "$yn" =~ ^[Yy]$ ]]; then
+      info "Keeping PROJECTS unchanged"
+      return
+    fi
+    ask "  Enter new path (default: $current):"
+    read -r value
+    echo
+    value="${value:-$current}"
+  else
+    ask "Set PROJECTS directory (used by the \`c\` function)? [y/N]"
+    read -r yn
+    echo
+    if [[ ! "$yn" =~ ^[Yy]$ ]]; then
+      info "Skipping PROJECTS — keeping it commented"
+      return
+    fi
     ask "  Enter path (default: $HOME/projects):"
     read -r value
     echo
     value="${value:-$HOME/projects}"
-
-    sedi "s|^# export PROJECTS=.*|export PROJECTS=\"${value}\"|" "$DEST"
-    sedi "s|^# PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
-    success "Set PROJECTS → $value"
-  else
-    info "Skipping PROJECTS — keeping it commented"
   fi
+
+  write_value "PROJECTS" "$value"
+  if grep -qE "^[[:space:]]*PROJECT_PATHS=" "$DEST"; then
+    sedi "s|^[[:space:]]*PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
+  elif grep -q "^# PROJECT_PATHS=" "$DEST"; then
+    sedi "s|^# PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
+  else
+    echo "PROJECT_PATHS=(\"${value}\")" >> "$DEST"
+  fi
+  success "Set PROJECTS → $value"
 }
 
 # ── main ──────────────────────────────────────────────────────────────────────

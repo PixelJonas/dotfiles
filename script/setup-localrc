@@ -16,6 +16,15 @@ success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"; }
 warn()    { printf "\r  [ \033[0;33m!!\033[0m ] %s\n" "$1"; }
 ask()     { printf "\r  [ \033[0;33m??\033[0m ] %s " "$1"; }
 
+# Portable sed -i: BSD sed (macOS) requires an explicit backup-extension argument.
+sedi() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # ── detect platform ───────────────────────────────────────────────────────────
 
 detect_platform() {
@@ -63,7 +72,7 @@ setup_localrc() {
   if [[ "$PLATFORM" == "bazzite" ]]; then
     info "Enabling Bazzite/SteamTinkerLaunch PATH block"
     # The block spans two comment lines; strip the leading '# ' from both
-    sed -i \
+    sedi \
       -e '/Linux\/Bazzite.*Steam Tinker Launch/{n; s|^# ||; n; s|^# ||}' \
       "$DEST"
   fi
@@ -98,7 +107,7 @@ prompt_value() {
     # Replace the commented export line with an active one.
     # Handles both '# export VAR=""' and '# export VAR=' patterns.
     if grep -q "^# export ${var}" "$DEST"; then
-      sed -i "s|^# export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
+      sedi "s|^# export ${var}=.*|export ${var}=\"${value}\"|" "$DEST"
       success "Set $var"
     else
       # Line not present — append it
@@ -122,8 +131,8 @@ prompt_projects() {
     echo
     value="${value:-$HOME/projects}"
 
-    sed -i "s|^# export PROJECTS=.*|export PROJECTS=\"${value}\"|" "$DEST"
-    sed -i "s|^# PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
+    sedi "s|^# export PROJECTS=.*|export PROJECTS=\"${value}\"|" "$DEST"
+    sedi "s|^# PROJECT_PATHS=.*|PROJECT_PATHS=(\"${value}\")|" "$DEST"
     success "Set PROJECTS → $value"
   else
     info "Skipping PROJECTS — keeping it commented"
@@ -143,6 +152,11 @@ echo ''
 prompt_projects
 prompt_value "GITHUB_TOKEN"     "Personal access token for GitHub"
 prompt_value "ANTHROPIC_API_KEY" "API key for Anthropic / Claude"
+
+if [[ "$PLATFORM" == "macos" ]]; then
+  prompt_value "CAMERA_ON_WEBHOOK"  "Home Assistant webhook URL — fires when camera turns on"
+  prompt_value "CAMERA_OFF_WEBHOOK" "Home Assistant webhook URL — fires when camera turns off"
+fi
 
 echo ''
 success "~/.localrc is ready — edit it any time at $DEST"

@@ -19,3 +19,7 @@
 # Secrets / API keys
 # export GITHUB_TOKEN=""
 # export ANTHROPIC_API_KEY=""
+
+# Home Assistant webhook URLs for the Hammerspoon camera → Elgato light bridge
+# export CAMERA_ON_WEBHOOK=""
+# export CAMERA_OFF_WEBHOOK=""

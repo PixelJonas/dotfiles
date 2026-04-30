@@ -1,0 +1,45 @@
+# Companion automations for the Hammerspoon camera → light bridge.
+# Paste into Home Assistant's automations.yaml (or import via the UI) and
+# reload automations. The webhook_id values become the URLs you store in
+# ~/.localrc as CAMERA_ON_WEBHOOK / CAMERA_OFF_WEBHOOK:
+#
+#   https://<your-ha-host>/api/webhook/mac_camera_on
+#   https://<your-ha-host>/api/webhook/mac_camera_off
+
+- id: mac_camera_on_office_light
+  alias: "Mac camera on → Elgato office light on"
+  description: "Turns on the office key light when the Mac camera activates, only while home."
+  mode: single
+  trigger:
+    - platform: webhook
+      webhook_id: mac_camera_on
+      allowed_methods:
+        - POST
+      local_only: false
+  condition:
+    - condition: state
+      entity_id: person.jonas
+      state: home
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.elgato_office
+
+- id: mac_camera_off_office_light
+  alias: "Mac camera off → Elgato office light off"
+  description: "Turns off the office key light when the Mac camera deactivates, only while home."
+  mode: single
+  trigger:
+    - platform: webhook
+      webhook_id: mac_camera_off
+      allowed_methods:
+        - POST
+      local_only: false
+  condition:
+    - condition: state
+      entity_id: person.jonas
+      state: home
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.elgato_office

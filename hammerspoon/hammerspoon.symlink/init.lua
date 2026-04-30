@@ -61,8 +61,9 @@ for _, camera in ipairs(hs.camera.allCameras()) do
   attachWatcher(camera)
 end
 
-hs.camera.watcher.new(function(camera, event)
+hs.camera.setWatcherCallback(function(camera, event)
   if event == "Added" then attachWatcher(camera) end
-end):start()
+end)
+hs.camera.startWatcher()
 
 print("[camera-light] watcher started")

@@ -143,6 +143,15 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 killall SystemUIServer
 
 ###############################################################################
+# Window Management                                                           #
+###############################################################################
+
+# Disable window snapping/tiling when dragging to the edges of the screen
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -bool false
+
+###############################################################################
 # Safari (developer settings)                                                 #
 ###############################################################################
 

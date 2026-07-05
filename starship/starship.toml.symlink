@@ -14,27 +14,27 @@ $line_break\
 $character"""
 
 [character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[❯](bold #A3BE8C)"
+error_symbol = "[❯](bold #BF616A)"
 
 [username]
 show_always = false
 format = "[$user]($style)@"
-style_user = "bold yellow"
+style_user = "bold #EBCB8B"
 
 [hostname]
 ssh_only = true
-format = "[$hostname](bold cyan) "
+format = "[$hostname](bold #88C0D0) "
 
 [directory]
 truncation_length = 3
 truncate_to_repo = true
-style = "bold blue"
+style = "bold #81A1C1"
 
 [git_branch]
 format = "[$symbol$branch]($style) "
 symbol = " "
-style = "bold purple"
+style = "bold #B48EAD"
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
@@ -48,27 +48,27 @@ modified = "!"
 staged = "+"
 renamed = "»"
 deleted = "✘"
-style = "bold red"
+style = "bold #BF616A"
 
 [kubernetes]
-format = '[☸ $context\($namespace\)](bold navyblue) '
+format = '[☸ $context\($namespace\)](bold #5E81AC) '
 disabled = false
 
 [cmd_duration]
 min_time = 4_000
-format = "[$duration](bold yellow) "
+format = "[$duration](bold #EBCB8B) "
 
 [golang]
-format = "[ $version](bold cyan) "
+format = "[ $version](bold #88C0D0) "
 
 [java]
-format = "[ $version](bold red) "
+format = "[ $version](bold #BF616A) "
 
 [nodejs]
-format = "[ $version](bold green) "
+format = "[ $version](bold #A3BE8C) "
 
 [rust]
-format = "[ $version](bold red) "
+format = "[ $version](bold #D08770) "
 
 [python]
-format = "[$virtualenv](bold yellow) "
+format = "[$virtualenv](bold #EBCB8B) "

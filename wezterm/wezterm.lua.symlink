@@ -1,0 +1,27 @@
+local wezterm = require("wezterm")
+local config = wezterm.config_builder()
+
+config.color_scheme = "Nord"
+config.font = wezterm.font("SauceCodePro Nerd Font Mono")
+config.font_size = 11.0
+
+config.window_padding = { left = 4, right = 4, top = 4, bottom = 4 }
+config.hide_tab_bar_if_only_one_tab = true
+config.window_close_confirmation = "NeverPrompt"
+
+if wezterm.target_triple:find("windows") then
+  config.default_prog = { "C:\\msys64\\usr\\bin\\zsh.exe", "--login" }
+elseif wezterm.target_triple:find("darwin") then
+  config.default_prog = { "/bin/zsh", "--login" }
+end
+
+config.launch_menu = {}
+if wezterm.target_triple:find("windows") then
+  config.launch_menu = {
+    { label = "PowerShell", args = { "powershell.exe", "-NoLogo" } },
+    { label = "CMD", args = { "cmd.exe" } },
+    { label = "MSYS2 Bash", args = { "C:\\msys64\\usr\\bin\\bash.exe", "--login" } },
+  }
+end
+
+return config

@@ -12,6 +12,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Nord",
   "git.autofetch": true,
   "gitlens.keymap": "alternate",
   "git.enableSmartCommit": true,

@@ -6,8 +6,15 @@ DOTFILE_HOME=$(pwd -P)
 while IFS= read -r src; do
   dst="$HOME/.$(basename "${src%.*}")"
   if [ -L "$dst" ]; then
-    echo "  already linked: $dst"
-  else
-    ln -sv "$src" "$dst"
+    if [ "$(readlink "$dst")" = "$src" ]; then
+      echo "  already linked: $dst"
+      continue
+    fi
+    echo "  relinking (was pointing elsewhere): $dst"
+    rm "$dst"
+  elif [ -e "$dst" ]; then
+    echo "  backing up existing $dst -> $dst.backup"
+    mv "$dst" "$dst.backup"
   fi
+  ln -sv "$src" "$dst"
 done < <(find -H "$DOTFILE_HOME" -maxdepth 2 -name '*.symlink' -not -path '*.git*')

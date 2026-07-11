@@ -1,7 +1,3 @@
-tap "graalvm/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "linuxbrew/xorg"
 tap "localsend/localsend"
 
 tap "buo/cask-upgrade"

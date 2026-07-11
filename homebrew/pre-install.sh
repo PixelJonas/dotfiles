@@ -27,7 +27,13 @@ if test ! $(command -v brew); then
       /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $DOTFILE_HOME/homebrew/homebrew.path.zsh
       /home/linuxbrew/.linuxbrew/bin/brew bundle --file $DOTFILE_HOME/homebrew/Brewfile
     elif test "$(uname)" = "Darwin"; then
-      info "MacOS config not yet implemented"
+      if test "$(uname -m)" = "arm64"; then
+        BREW_PREFIX="/opt/homebrew"
+      else
+        BREW_PREFIX="/usr/local"
+      fi
+      "$BREW_PREFIX/bin/brew" shellenv >> $DOTFILE_HOME/homebrew/homebrew.path.zsh
+      "$BREW_PREFIX/bin/brew" bundle --file $DOTFILE_HOME/homebrew/Brewfile
     fi
   fi
 fi

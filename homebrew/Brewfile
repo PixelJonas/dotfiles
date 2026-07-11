@@ -52,10 +52,6 @@ brew "yq"
 brew "zoxide"
 brew "zsh"
 
-tap "utkuozdemir/pv-migrate"
-brew "utkuozdemir/pv-migrate/pv-migrate"
-
-
 cask "adobe-acrobat-reader"
 cask "balenaetcher"
 cask "caffeine"

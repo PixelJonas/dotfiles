@@ -38,5 +38,11 @@
 	rebase = false
 [init]
 	defaultBranch = main
+	templateDir = /Users/jjanz/.git-template
 [user]
 	email = 5434875+PixelJonas@users.noreply.github.com
+[rh-pre-commit]
+	enableLocalConfig = false
+	checkSecrets = true
+[safe]
+	directory = /Users/jjanz/actions-runner-recordbuddy/_work/recordbuddy/recordbuddy

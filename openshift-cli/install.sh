@@ -1,3 +1,5 @@
+DOTFILE_HOME="${DOTFILE_HOME:-$(pwd -P)}"
+
 OS_NAME="linux"
 
 if test "$(uname)" = "Darwin"; then

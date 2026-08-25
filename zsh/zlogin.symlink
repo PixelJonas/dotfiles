@@ -1,6 +1,7 @@
 {
-  # Compile zcompdump, if modified, to increase startup speed.
-  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+  # Compile the completion dump oh-my-zsh owns/writes (ZSH_COMPDUMP), if
+  # modified, to increase startup speed.
+  zcompdump="${ZSH_COMPDUMP:-${ZDOTDIR:-$HOME}/.zcompdump}"
   if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
     zcompile "$zcompdump"
   fi

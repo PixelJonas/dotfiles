@@ -33,18 +33,15 @@ for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/completion.ali
   source $file
 done
 
-# oh-my-zsh (owns compinit — must come before we call it ourselves)
+# oh-my-zsh (owns compinit — do not call compinit again after this, it
+# already handles caching via ZSH_COMPDUMP)
 export ZSH="$HOME/.oh-my-zsh"
 export DISABLE_UPDATE_PROMPT=true
+# DISABLE_UPDATE_PROMPT alone makes omz auto-update (silent git fetch/merge)
+# on startup once every UPDATE_ZSH_DAYS — pin the mode explicitly instead so
+# we get a one-line reminder, never a blocking/silent update mid-startup.
+zstyle ':omz:update' mode reminder
 source $ZSH/oh-my-zsh.sh
-
-# compinit with 24h cache — skip full rebuild if dump is less than a day old
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
 
 # Homebrew zsh completions
 if command -v brew &>/dev/null; then

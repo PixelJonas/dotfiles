@@ -38,7 +38,7 @@
 	rebase = false
 [init]
 	defaultBranch = main
-	templateDir = /Users/jjanz/.git-template
+	templateDir = ~/.git-template
 [user]
 	email = 5434875+PixelJonas@users.noreply.github.com
 [rh-pre-commit]
